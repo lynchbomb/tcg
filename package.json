@@ -1,0 +1,56 @@
+{
+  "name": "pokemon",
+  "version": "0.0.0",
+  "description": "pokemon",
+  "author": "Marc Lynch @lynchbomb",
+  "license": "BSD-3-Clause",
+  "private": true,
+  "main": "dist/src/index.js",
+  "types": "dist/src/index.d.ts",
+  "engines": {
+    "node": ">=12.0.0"
+  },
+  "scripts": {
+    "lint": "eslint -c .eslintrc.js --ext .ts .",
+    "prepare": "yarn build",
+    "prepack": "yarn build && yarn build:schema",
+    "test": "yarn lint && nyc --extension .ts mocha \"test/**/*.test.ts\"",
+    "build": "rm -rf ./dist && tsc -b && yarn lint"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.2.11",
+    "@types/fs-extra": "^9.0.1",
+    "@types/json-query": "^2.2.0",
+    "@types/json5": "*",
+    "@types/mock-fs": "4.10.0",
+    "@types/node": "^14.0.11",
+    "@types/tmp": "^0.2.0",
+    "@typescript-eslint/eslint-plugin": "^3.1.0",
+    "@typescript-eslint/parser": "^3.1.0",
+    "chai": "^4.2.0",
+    "chai-files": "^1.4.0",
+    "eslint": "^7.2.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-filenames": "^1.3.2",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-oclif": "^0.1.0",
+    "eslint-plugin-prettier": "^3.1.3",
+    "eslint-plugin-simple-import-sort": "^5.0.3",
+    "json-merger": "^1.1.2",
+    "mocha": "^7.2.0",
+    "mock-fs": "^4.12.0",
+    "nyc": "^15.1.0",
+    "prettier": "^2.0.5",
+    "ts-node": "^8.10.2",
+    "typescript": "^3.9.5",
+    "typescript-json-schema": "^0.42.0"
+  },
+  "dependencies": {
+    "fs-extra": "^9.0.1",
+    "json-query": "^2.2.2",
+    "json5": "^2.1.3",
+    "node-fetch": "^2.6.0",
+    "path": "0.12.7",
+    "tslib": "^2.0.0"
+  }
+}

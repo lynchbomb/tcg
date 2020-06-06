@@ -1,0 +1,48 @@
+// https://github.com/PokemonTCG/pokemon-tcg-data/tree/master/json/cards
+{
+  "cards": [
+    {
+      "id": "pl4-1",
+      "name": "Charizard",
+      "nationalPokedexNumber": 6,
+      "imageUrl": "https://images.pokemontcg.io/pl4/1.png",
+      "imageUrlHiRes": "https://images.pokemontcg.io/pl4/1_hires.png",
+      "types": ["Fire"],
+      "supertype": "Pokémon",
+      "subtype": "Stage 2",
+      "evolvesFrom": "Charmeleon",
+      "ability": {
+        "name": "Fire Formation",
+        "text": "Each of Charizard's attacks does 10 more damage for each Fire Pokémon on your Bench to your opponent's Active Pokémon (before applying Weakness and Resistance).",
+        "type": "Poké-Body"
+      },
+      "hp": "140",
+      "retreatCost": ["Colorless", "Colorless", "Colorless"],
+      "convertedRetreatCost": 3,
+      "number": "1",
+      "artist": "Kagemaru Himeno",
+      "rarity": "Rare Holo",
+      "series": "Platinum",
+      "set": "Arceus",
+      "setCode": "pl4",
+      "attacks": [
+        {
+          "cost": ["Fire"],
+          "name": "Fire Wing",
+          "text": "",
+          "damage": "30",
+          "convertedEnergyCost": 1
+        },
+        {
+          "cost": ["Fire", "Fire", "Colorless"],
+          "name": "Burning Tail",
+          "text": "Discard a Fire Energy attached to Charizard.",
+          "damage": "80",
+          "convertedEnergyCost": 3
+        }
+      ],
+      "resistances": [{ "type": "Fighting", "value": "-20" }],
+      "weaknesses": [{ "type": "Water", "value": "+30" }]
+    }
+  ]
+}
