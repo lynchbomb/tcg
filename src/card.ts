@@ -1,6 +1,11 @@
 export interface ICard {
   id: string;
+  supertype: string;
+  name: string;
 }
 export class Card {
-  constructor() {}
+  meta: ICard = { id: "", supertype: "", name: "" };
+  constructor() {
+    //
+  }
 }

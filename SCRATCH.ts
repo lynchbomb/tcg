@@ -13,11 +13,11 @@ const name = "Mew";
 // const card = jsonQuery(`[id=${id}]`, {
 //   data: pokedex,
 // }).value;
-// const cards = jsonQuery(`[*supertype=${supertype}]`, {
-//   data: pokedex,
-// }).value;
-const cards = jsonQuery(`[*name=${name}]`, {
+const cards = jsonQuery(`[*supertype=${supertype}]`, {
   data: pokedex,
 }).value;
+// const cards = jsonQuery(`[*name=${name}]`, {
+//   data: pokedex,
+// }).value;
 
 console.log(cards.length);

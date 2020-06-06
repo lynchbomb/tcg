@@ -1,16 +1,7 @@
+import { Card } from "./card";
+import { IEnergyMeta } from "./energy";
 export interface IPokemonMeta {
-  energyTypes:
-    | "grass"
-    | "fire"
-    | "water"
-    | "lightning"
-    | "psychic"
-    | "fighting"
-    | "darkness"
-    | "metal"
-    | "fairy"
-    | "dragon"
-    | "colorless";
+  energyTypes: IEnergyMeta["energyTypes"];
   conditions:
     | "asleep"
     | "burned"
@@ -21,24 +12,26 @@ export interface IPokemonMeta {
 }
 
 type attack = {
-  cost: IPokemonMeta["energyTypes"][];
+  cost: IEnergyMeta["energyTypes"][];
   name: string;
   damage: number;
   description: string;
 };
 
 export interface IPokemon {
-  weakness: { energyType: IPokemonMeta["energyTypes"]; value: number };
-  resistance: { energyType: IPokemonMeta["energyTypes"]; value: number };
+  weakness: { energyType: IEnergyMeta["energyTypes"]; value: number };
+  resistance: { energyType: IEnergyMeta["energyTypes"]; value: number };
   retreatCost: number;
   condition: IPokemonMeta["conditions"];
   attacks: attack[];
 }
 
-export default class Pokemon implements IPokemon {
+export class Pokemon extends Card implements IPokemon {
   condition: IPokemon["condition"] = "none";
   weakness: IPokemon["weakness"];
-  constructor() {}
+  constructor() {
+    super();
+  }
   conditionStatus(condition?: IPokemon["condition"]): IPokemon["condition"] {
     if (condition) {
       this.condition = condition;
