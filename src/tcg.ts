@@ -29,5 +29,6 @@ const tcg = new TCG();
 
 tcg.startGame();
 
-console.log(tcg.players.A?.deck);
+console.log(tcg.players.A);
 console.log(tcg.players.A?.deck.cards.length);
+console.log(tcg.players.A?.deck.cards[0]);

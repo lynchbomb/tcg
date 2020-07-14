@@ -4,7 +4,7 @@ import { Trainer } from "./trainer";
 
 export type TCard = Pokemon | Energy | Trainer;
 
-export interface ICardBase {
+export interface ICardImmutableStats {
   id: string;
   supertype: string;
   name: string;
@@ -14,7 +14,7 @@ export interface ICardBase {
 
 // what is common on EVERY card
 export class Card {
-  meta: ICardBase = {
+  IMMUTABLE_STATS: ICardImmutableStats = {
     id: "",
     supertype: "",
     name: "",

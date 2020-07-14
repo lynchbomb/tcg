@@ -5,13 +5,16 @@ import { resolve } from "path";
 
 import { TCard } from "./card";
 import { ID_DECKS, IidCardCategories } from "./decks";
-import { Energy, IEnergyMeta } from "./energy";
-import { IPokemonMeta, Pokemon } from "./pokemon";
-import { ITrainerMeta, Trainer } from "./trainer";
+import { Energy, IEnergyImmutableStats } from "./energy";
+import { IPokemonImmutableStats, Pokemon } from "./pokemon";
+import { ITrainerImmutableStats, Trainer } from "./trainer";
 import { shuffleCards } from "./utils";
 export type TDeck = TCard[];
 
-type TDeckMetaType = IPokemonMeta | IEnergyMeta | ITrainerMeta;
+type TDeckMetaType =
+  | IPokemonImmutableStats
+  | IEnergyImmutableStats
+  | ITrainerImmutableStats;
 
 const POKEDEX = readJSONSync(resolve("./static/pokedex.json"));
 
@@ -37,13 +40,13 @@ export class Deck {
         const card = this.queryBy(id, "id")[0];
         switch (card.supertype) {
           case "Pokémon":
-            cards.push(new Pokemon(card as IPokemonMeta));
+            cards.push(new Pokemon(card as IPokemonImmutableStats));
             break;
           case "Energy":
-            cards.push(new Energy(card as IEnergyMeta));
+            cards.push(new Energy(card as IEnergyImmutableStats));
             break;
           case "Trainer":
-            cards.push(new Trainer(card as ITrainerMeta));
+            cards.push(new Trainer(card as ITrainerImmutableStats));
             break;
         }
       });

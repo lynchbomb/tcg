@@ -1,6 +1,6 @@
-import { Card, ICardBase } from "./card";
-import { IEnergyMeta } from "./energy";
-export interface IPokemonMeta extends ICardBase {
+import { Card, ICardImmutableStats } from "./card";
+import { IEnergyImmutableStats } from "./energy";
+export interface IPokemonImmutableStats extends ICardImmutableStats {
   types: string[];
   evolvesFrom: string;
   ability: Record<string, string>;
@@ -31,7 +31,7 @@ type conditions =
   | "none";
 
 type attack = {
-  cost: IEnergyMeta["energyTypes"][];
+  cost: IEnergyImmutableStats["energyTypes"][];
   name: string;
   damage: number;
   description: string;
@@ -39,10 +39,12 @@ type attack = {
 };
 
 export class Pokemon extends Card {
-  pokemonMeta: IPokemonMeta;
-  condition: conditions = "none";
-  constructor(card: IPokemonMeta) {
+  activeCondition: conditions = "none";
+  activeHitPoints = 0;
+  isActive = false;
+  isBenched = false;
+  constructor(card: IPokemonImmutableStats) {
     super();
-    this.pokemonMeta = card;
+    this.IMMUTABLE_STATS = card;
   }
 }

@@ -1,12 +1,11 @@
-import { Card, ICardBase } from "./card";
+import { Card, ICardImmutableStats } from "./card";
 
-export interface ITrainerMeta extends ICardBase {
+export interface ITrainerImmutableStats extends ICardImmutableStats {
   text: string;
 }
 export class Trainer extends Card {
-  trainerMeta: ITrainerMeta;
-  constructor(card: ITrainerMeta) {
+  constructor(card: ITrainerImmutableStats) {
     super();
-    this.trainerMeta = card;
+    this.IMMUTABLE_STATS = card;
   }
 }

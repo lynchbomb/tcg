@@ -1,6 +1,6 @@
-import { Card, ICardBase } from "./card";
+import { Card, ICardImmutableStats } from "./card";
 
-export interface IEnergyMeta extends ICardBase {
+export interface IEnergyImmutableStats extends ICardImmutableStats {
   energyTypes:
     | "grass"
     | "fire"
@@ -15,9 +15,8 @@ export interface IEnergyMeta extends ICardBase {
     | "colorless";
 }
 export class Energy extends Card {
-  energyMeta: IEnergyMeta;
-  constructor(card: IEnergyMeta) {
+  constructor(card: IEnergyImmutableStats) {
     super();
-    this.energyMeta = card;
+    this.IMMUTABLE_STATS = card;
   }
 }
