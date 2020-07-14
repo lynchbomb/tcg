@@ -1,0 +1,19 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Launch TS-Node",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["--nolazy", "-r", "ts-node/register"],
+
+      "args": ["src/tcg.ts", "--transpile-only"],
+      "sourceMaps": false,
+
+      "cwd": "${workspaceFolder}",
+      "internalConsoleOptions": "openOnSessionStart",
+      "skipFiles": ["<node_internals>/**", "node_modules/**"]
+    }
+  ]
+}

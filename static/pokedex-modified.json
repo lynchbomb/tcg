@@ -43,6 +43,35 @@
       ],
       "resistances": [{ "type": "Fighting", "value": "-20" }],
       "weaknesses": [{ "type": "Water", "value": "+30" }]
+    },
+    {
+      "id": "bw1-105",
+      "name": "Grass Energy",
+      "imageUrl": "https://images.pokemontcg.io/bw1/105.png",
+      "imageUrlHiRes": "https://images.pokemontcg.io/bw1/105_hires.png",
+      "supertype": "Energy",
+      "subtype": "Basic",
+      "number": "105",
+      "artist": "",
+      "rarity": "Common",
+      "series": "Black & White",
+      "set": "Black & White",
+      "setCode": "bw1"
+    },
+    {
+      "id": "xy0-39",
+      "name": "Tierno",
+      "imageUrl": "https://images.pokemontcg.io/xy0/39.png",
+      "imageUrlHiRes": "https://images.pokemontcg.io/xy0/39_hires.png",
+      "supertype": "Trainer",
+      "subtype": "Supporter",
+      "number": "39",
+      "artist": "Ken Sugimori",
+      "rarity": "",
+      "series": "XY",
+      "set": "Kalos Starter Set",
+      "setCode": "xy0",
+      "text": ["Draw 3 cards."]
     }
   ]
 }

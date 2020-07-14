@@ -1,12 +1,12 @@
-import { Card } from "./card";
+import { Card, ICardBase } from "./card";
 
-export interface ITrainer {
-  id: string;
-  supertype: string;
-  name: string;
+export interface ITrainerMeta extends ICardBase {
+  text: string;
 }
 export class Trainer extends Card {
-  constructor() {
+  trainerMeta: ITrainerMeta;
+  constructor(card: ITrainerMeta) {
     super();
+    this.trainerMeta = card;
   }
 }

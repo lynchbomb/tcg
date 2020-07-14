@@ -1,57 +1,61 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { readJSONSync } from "fs-extra";
 import * as jsonQuery from "json-query";
 import { resolve } from "path";
 
-import { ICard } from "./card";
-import { DECKS } from "./decks";
-import { Energy } from "./energy";
-import { Pokemon } from "./pokemon";
-import { Trainer } from "./trainer";
+import { TCard } from "./card";
+import { ID_DECKS, IidCardCategories } from "./decks";
+import { Energy, IEnergyMeta } from "./energy";
+import { IPokemonMeta, Pokemon } from "./pokemon";
+import { ITrainerMeta, Trainer } from "./trainer";
+import { shuffleCards } from "./utils";
+export type TDeck = TCard[];
 
-interface IDeck {
-  pokemon: Pokemon[];
-  energy: Energy[];
-  trainer: Trainer[];
-}
+type TDeckMetaType = IPokemonMeta | IEnergyMeta | ITrainerMeta;
 
-const pokedex = readJSONSync(resolve("./pokedex.json"));
+const POKEDEX = readJSONSync(resolve("./static/pokedex.json"));
 
-export default class Deck {
-  cards: IDeck = {
-    pokemon: [],
-    energy: [],
-    trainer: [],
-  };
-  constructor(playerID = "marc") {
+export class Deck {
+  public cards: TDeck;
+  constructor(playerID: string) {
+    // lookup marcs deck based on "marc"
+    // contains a record with pokemon/trainer/energy ids
     const deckIDs = this.deckLookupTable(playerID);
-    this.buildDeck(deckIDs);
+    this.cards = shuffleCards(this.buildDeck(deckIDs));
   }
   // returns the ID's for the 60 cards in a deck
-  private deckLookupTable(playerID: string): string[] {
-    return DECKS[playerID];
+  private deckLookupTable(playerID: string): IidCardCategories {
+    return ID_DECKS[playerID];
   }
-  private buildDeck(deckIDs: string[]): void {
-    deckIDs.forEach((id) => {
-      const card = this.queryBy(id)[0];
-      switch (card.supertype) {
-        case "Pokémon":
-          this.cards.pokemon.push((card as unknown) as Pokemon);
-          break;
-        case "Energy":
-          this.cards.energy.push((card as unknown) as Energy);
-          break;
-        case "Trainer":
-          this.cards.trainer.push((card as unknown) as Trainer);
-          break;
-      }
-    });
+  // iterate over a record of arrays containing card IDs
+  // instantiating a new card based on supertype category
+  private buildDeck(deckIDs: IidCardCategories): TDeck {
+    const cards: TDeck = [];
+
+    for (const [_key, value] of Object.entries(deckIDs)) {
+      value.forEach((id: string) => {
+        const card = this.queryBy(id, "id")[0];
+        switch (card.supertype) {
+          case "Pokémon":
+            cards.push(new Pokemon(card as IPokemonMeta));
+            break;
+          case "Energy":
+            cards.push(new Energy(card as IEnergyMeta));
+            break;
+          case "Trainer":
+            cards.push(new Trainer(card as ITrainerMeta));
+            break;
+        }
+      });
+    }
+    return cards;
   }
 
   public queryBy(
     query: string,
     queryType?: "supertype" | "name" | "id"
-  ): ICard[] {
-    const cards: ICard[] = [];
+  ): TDeckMetaType[] {
+    const cards: TDeckMetaType[] = [];
     let typeByQuery = queryType ? queryType : "name";
 
     if (!queryType) {
@@ -62,27 +66,25 @@ export default class Deck {
       }
     }
 
-    console.log(`Querying Pokédex by ${typeByQuery}`);
-
     switch (typeByQuery) {
       case "supertype":
         cards.push(
           jsonQuery(`[*supertype=${query}]`, {
-            data: pokedex,
+            data: POKEDEX,
           }).value
         );
         break;
       case "id":
         cards.push(
           jsonQuery(`[id=${query}]`, {
-            data: pokedex,
+            data: POKEDEX,
           }).value
         );
         break;
       case "name":
         cards.push(
           jsonQuery(`[*name=${name}]`, {
-            data: pokedex,
+            data: POKEDEX,
           }).value
         );
         break;
