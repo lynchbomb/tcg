@@ -30,13 +30,17 @@ export default class Player {
     shuffleCards(this.deck.cards);
     // chose which basic pokemon should be active
     this.activePokemon = this.getActivePokemon();
-    console.log(`active pokemon set as ${JSON.stringify(this.activePokemon)}`);
-    console.log(`prize cards should equal 6 ${this.prizeCards.length}`);
-    console.log(`hand cards should equal 6 ${this.handCards.length}`);
-    console.log(`discard should equal 0 ${this.discardCards.length}`);
-    console.log(`deck should equal 47 ${this.deck.cards.length}\n\n`);
     // chose which basic pokemon should be on the bench
-    this.setBenchedPokemon();
+    this.benchedPokemon = this.getBenchedPokemon();
+
+    console.log(
+      `active pokemon set as ${this.activePokemon.IMMUTABLE_STATS.name}`
+    );
+    console.log(`prize cards should equal 6 ${this.prizeCards.length}`);
+    console.log(`hand cards should equal 6 or less ${this.handCards.length}`);
+    console.log(`discard should equal 0 ${this.discardCards.length}`);
+    console.log(`bench should have 5 or less ${this.benchedPokemon.length}`);
+    console.log(`deck should equal 47 ${this.deck.cards.length}\n\n`);
   }
 
   // get the active pokemon from cards in your hand
@@ -49,8 +53,8 @@ export default class Player {
     )[0];
   }
 
-  public setBenchedPokemon(): void {
-    //
+  public getBenchedPokemon(): Pokemon[] {
+    return this.getCardsByType<Pokemon>(this.handCards, "Pokémon", "Basic", 5);
   }
 
   public getCardsByType<T>(
@@ -89,7 +93,7 @@ export default class Player {
     });
   }
 
-  // draw card from the players deck
+  // remove cards from the players deck
   // puts the cards into the hand
   public drawCards(count = 1): void {
     this.deck.drawCards(count).map((card) => {

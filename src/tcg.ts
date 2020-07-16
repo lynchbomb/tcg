@@ -36,6 +36,7 @@ export default class TCG {
         `${this.playerStatus.inactive?.playerID} has won the game!`
       );
     }
+
     this.switchActivePlayer();
   }
   public isActivePlayerForfeited(): boolean {
