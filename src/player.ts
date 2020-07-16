@@ -1,7 +1,8 @@
-import type { TCard } from "./card";
+import type { ICardImmutableStats, TCard } from "./card";
 import { Deck } from "./deck";
 import { Pokemon } from "./pokemon";
 import { shuffleCards } from "./utils";
+
 export default class Player {
   public playerID = "";
   public deck: Deck;
@@ -33,14 +34,48 @@ export default class Player {
     // chose which basic pokemon should be on the bench
     this.benchedPokemon = this.getBenchedPokemon();
 
+    this.logCardStats();
+    this.logViewableCards();
+  }
+
+  public getCardImmutableStats(cards: TCard[]): ICardImmutableStats[] {
+    return cards.map((card) => {
+      return {
+        name: card.IMMUTABLE_STATS.name,
+        subtype: card.IMMUTABLE_STATS.subtype,
+        supertype: card.IMMUTABLE_STATS.supertype,
+        id: card.IMMUTABLE_STATS.id,
+        imageUrl: card.IMMUTABLE_STATS.imageUrl,
+      };
+    });
+  }
+
+  public logViewableCards(): void {
+    const benchedPokemon = this.getCardImmutableStats(this.benchedPokemon);
+    const handCards = this.getCardImmutableStats(this.handCards);
+
     console.log(
-      `active pokemon set as ${this.activePokemon.IMMUTABLE_STATS.name}`
+      `ACTIVE: ${this.activePokemon?.IMMUTABLE_STATS.supertype} :: ${this.activePokemon?.IMMUTABLE_STATS.subtype} :: ${this.activePokemon?.IMMUTABLE_STATS.name}`
     );
-    console.log(`prize cards should equal 6 ${this.prizeCards.length}`);
-    console.log(`hand cards should equal 6 or less ${this.handCards.length}`);
-    console.log(`discard should equal 0 ${this.discardCards.length}`);
-    console.log(`bench should have 5 or less ${this.benchedPokemon.length}`);
-    console.log(`deck should equal 47 ${this.deck.cards.length}\n\n`);
+    benchedPokemon.map((card) => {
+      console.log(
+        `BENCH: ${card.supertype} :: ${card.subtype} :: ${card.name}`
+      );
+    });
+
+    handCards.map((card) => {
+      console.log(`HAND: ${card.supertype} :: ${card.subtype} :: ${card.name}`);
+    });
+
+    console.log(`\n`);
+  }
+
+  public logCardStats(): void {
+    console.log(`PRIZE CARDS COUNT: ${this.prizeCards.length}`);
+    console.log(`HAND CARDS COUNT: ${this.handCards.length}`);
+    console.log(`DISCARD CARDS COUNT: ${this.discardCards.length}`);
+    console.log(`DECK CARDS COUNT: ${this.deck.cards.length}`);
+    console.log(`\n`);
   }
 
   // get the active pokemon from cards in your hand
