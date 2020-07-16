@@ -1,4 +1,4 @@
-import { TDeck } from "./deck";
+import type { TDeck } from "./deck";
 
 // result either 0 or 1 (heads or tails)
 export function flipCoin(): string {

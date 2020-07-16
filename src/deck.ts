@@ -3,11 +3,15 @@ import { readJSONSync } from "fs-extra";
 import * as jsonQuery from "json-query";
 import { resolve } from "path";
 
-import { TCard } from "./card";
-import { ID_DECKS, IidCardCategories } from "./decks";
-import { Energy, IEnergyImmutableStats } from "./energy";
-import { IPokemonImmutableStats, Pokemon } from "./pokemon";
-import { ITrainerImmutableStats, Trainer } from "./trainer";
+import type { TCard } from "./card";
+import type { IidCardCategories } from "./decks";
+import { ID_DECKS } from "./decks";
+import type { IEnergyImmutableStats } from "./energy";
+import { Energy } from "./energy";
+import type { IPokemonImmutableStats } from "./pokemon";
+import { Pokemon } from "./pokemon";
+import type { ITrainerImmutableStats } from "./trainer";
+import { Trainer } from "./trainer";
 import { shuffleCards } from "./utils";
 
 export type TDeck = TCard[];

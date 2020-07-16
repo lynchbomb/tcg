@@ -1,5 +1,6 @@
-import { Card, ICardImmutableStats } from "./card";
-import { IEnergyImmutableStats } from "./energy";
+import type { ICardImmutableStats } from "./card";
+import { Card } from "./card";
+import type { IEnergyImmutableStats } from "./energy";
 export interface IPokemonImmutableStats extends ICardImmutableStats {
   types: string[];
   evolvesFrom: string;

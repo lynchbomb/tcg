@@ -1,4 +1,5 @@
-import { Card, ICardImmutableStats } from "./card";
+import type { ICardImmutableStats } from "./card";
+import { Card } from "./card";
 
 export interface ITrainerImmutableStats extends ICardImmutableStats {
   text: string;

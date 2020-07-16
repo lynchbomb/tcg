@@ -43,7 +43,10 @@ export default class TCG {
     // if your deck is gone OR
     // if you cant play an active pokemon
     const { active } = this.playerStatus;
-    return active?.deck.cards.length === 0 || active?.deck.;
+    return (
+      active?.deck.cards.length === 0 ||
+      typeof active?.activePokemon === undefined
+    );
   }
 
   public switchActivePlayer(): void {
