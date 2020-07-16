@@ -9,6 +9,7 @@ import { Energy, IEnergyImmutableStats } from "./energy";
 import { IPokemonImmutableStats, Pokemon } from "./pokemon";
 import { ITrainerImmutableStats, Trainer } from "./trainer";
 import { shuffleCards } from "./utils";
+
 export type TDeck = TCard[];
 
 type TDeckMetaType =
@@ -25,6 +26,9 @@ export class Deck {
     // contains a record with pokemon/trainer/energy ids
     const deckIDs = this.deckLookupTable(playerID);
     this.cards = shuffleCards(this.buildDeck(deckIDs));
+  }
+  public drawCards(count = 1): TCard[] {
+    return this.cards.splice(0, count);
   }
   // returns the ID's for the 60 cards in a deck
   private deckLookupTable(playerID: string): IidCardCategories {
@@ -54,7 +58,7 @@ export class Deck {
     return cards;
   }
 
-  public queryBy(
+  private queryBy(
     query: string,
     queryType?: "supertype" | "name" | "id"
   ): TDeckMetaType[] {
